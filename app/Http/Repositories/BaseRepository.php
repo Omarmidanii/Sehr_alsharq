@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\BaseRepositoryInterface;
 use App\Http\Services\Filter\FilterService;
+use App\Http\Services\OrderService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,7 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function index(array $with = [])
+     public function index(array $with = [],  $order = false)
     {
         $query = $this->model::query();
 
@@ -28,9 +29,12 @@ class BaseRepository implements BaseRepositoryInterface
             $func = class_basename($this->model);
             return FilterService::$func();
         }
-
+        if ($order) {
+            $func = class_basename($this->model);
+            return OrderService::$func();
+        }
         return $query->simplePaginate(10);
-    }
+    }	
 
     public function show($id, array $with = [])
     {
