@@ -48,7 +48,7 @@ class GroupResource extends JsonResource
             'classification_id' => $this->classification_id,
             'colors' => json_decode($this->colors, true),
             'items' => ItemResource::collection($this->items),
-			'state' => $this->state,
+            'state' => $this->state,
             'photos' =>  $this->media->map(function ($mediaItem) {
                 return [
                     'id' => $mediaItem->id,

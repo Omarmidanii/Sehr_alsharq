@@ -3,11 +3,8 @@
 namespace App\Http\Repositories;
 
 use App\Http\Interfaces\ExpenseRepositoryInterface;
-use App\Http\Requests\Expense\StoreExpenseRequest;
-use App\Models\Employee;
 use App\Models\Expense;
 use App\Models\Expensedetails;
-use App\Models\total_additional;
 use Illuminate\Support\Facades\DB;
 
 class ExpenseRepository extends BaseRepository implements ExpenseRepositoryInterface

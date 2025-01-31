@@ -26,7 +26,7 @@ class GroupController extends Controller
     public function index()
     {
         try {
-            $data = $this->groupRepository->index(['media', 'classification'] , true);
+            $data = $this->groupRepository->index(['media', 'classification'], true);
             return $this->SuccessMany($data, GroupResource::class, 'Groups indexed successfully');
         } catch (Throwable $th) {
             $code = 200;
@@ -69,7 +69,6 @@ class GroupController extends Controller
             $validated = $request->validated();
             $validated['workshop_id'] = 1;
             $data = $this->groupRepository->update($id, $validated);
-            return $data;
             return $this->SuccessOne($data, GroupResource::class, 'Group updated successfully');
         } catch (Throwable $th) {
             $code = 200;
