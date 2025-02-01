@@ -112,7 +112,6 @@ class ExpenseRepository extends BaseRepository implements ExpenseRepositoryInter
         $year = $date->format('Y');
         if ($type == 4) {
             $t = DB::table('total_additionals')->join('employees', 'total_additionals.employee_id', '=', 'employees.id')->whereMonth('total_additionals.created_at', $month)->whereYear('total_additionals.created_at', $year)->select('total_additionals.id', 'total_additionals.total', 'total_additionals.salary',  DB::raw("CONCAT(employees.firstname, ' ', employees.lastname) AS employer_name"))->simplePaginate(10);
-
             return [
                 'data' => $t->items(),
                 'meta' => [
@@ -127,8 +126,11 @@ class ExpenseRepository extends BaseRepository implements ExpenseRepositoryInter
                 ]
             ];
         } else {
-            $expense = Expense::where('type', $type)->whereMonth('created_at', $month)->whereYear('created_at', $year)->first();
-            $details = Expensedetails::where('expense_id', $expense->id)->select('name', 'cost')->get();
+            $details = [];
+            if (Expense::where('type', $type)->whereMonth('created_at', $month)->whereYear('created_at', $year)->first() != null) {
+                $expense = Expense::where('type', $type)->whereMonth('created_at', $month)->whereYear('created_at', $year)->first();
+                $details = Expensedetails::where('expense_id', $expense->id)->select('id', 'name', 'cost')->get();
+            }
             return $details;
         }
     }
