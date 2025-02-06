@@ -11,7 +11,7 @@
 
 <body>
     <div id="root"></div>
-    <script type="module" crossorigin src={{asset('assets/index-DMP8O66w.js')}}></script>
+    <script type="module" crossorigin src={{asset('assets/index-BoJjXKiW.js')}}></script>
 </body>
 
 </html>
